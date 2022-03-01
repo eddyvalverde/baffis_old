@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "baffis.FrontEnd.Web", "baffis\baffis.FrontEnd.Web.csproj", "{F9418369-E355-437D-BC60-107752C5310C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "baffis.Model", "baffis.Model\baffis.Model.csproj", "{CA47AD69-935F-485C-90D5-2DD3DBCF2271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "baffis.DataAccess.Interface", "baffis.DataAccess.Interface\baffis.DataAccess.Interface.csproj", "{B77BA11E-41CC-4832-8949-AC6201C96FD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F9418369-E355-437D-BC60-107752C5310C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9418369-E355-437D-BC60-107752C5310C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9418369-E355-437D-BC60-107752C5310C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA47AD69-935F-485C-90D5-2DD3DBCF2271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA47AD69-935F-485C-90D5-2DD3DBCF2271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA47AD69-935F-485C-90D5-2DD3DBCF2271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA47AD69-935F-485C-90D5-2DD3DBCF2271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B77BA11E-41CC-4832-8949-AC6201C96FD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B77BA11E-41CC-4832-8949-AC6201C96FD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B77BA11E-41CC-4832-8949-AC6201C96FD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B77BA11E-41CC-4832-8949-AC6201C96FD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
