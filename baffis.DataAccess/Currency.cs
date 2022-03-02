@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace baffis.DataAccess
 {
-    class Currency : ICurrency
+    public class Currency : ICurrency
     {
         #region Atributos
         private readonly Interface.IConnectionManager connectionManager;

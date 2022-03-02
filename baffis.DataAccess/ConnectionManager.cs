@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace baffis.DataAccess
 {
-    class ConnectionManager : IConnectionManager
+    public class ConnectionManager : IConnectionManager
     {
         public const string Prueba_Key = "BaffiConnection";
         private readonly IConfiguration configuration;
