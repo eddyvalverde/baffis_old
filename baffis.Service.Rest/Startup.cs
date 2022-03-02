@@ -32,6 +32,9 @@ namespace baffis.Service.Rest
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "baffis.Service.Rest", Version = "v1" });
             });
+            services.AddSingleton<BusinessLogic.Interface.ICurrency, BusinessLogic.Currency>();
+            services.AddSingleton<DataAccess.Interface.ICurrency, DataAccess.Currency>();
+            services.AddSingleton<DataAccess.Interface.IConnectionManager, DataAccess.ConnectionManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
