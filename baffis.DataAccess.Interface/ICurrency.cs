@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace baffis.DataAccess.Interface
 {
-    interface ICurrency
+    public interface ICurrency
     {
         IEnumerable<baffis.Model.Currency> List();
         IActionResult Create(Currency item);

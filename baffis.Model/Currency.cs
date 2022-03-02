@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace baffis.Model
 {
-    class Currency
+    public class Currency
     {
         public int ID { get; set; }
         public string Name { get; set; }

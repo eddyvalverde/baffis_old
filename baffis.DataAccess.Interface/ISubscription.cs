@@ -13,10 +13,10 @@ namespace baffis.DataAccess.Interface
         IEnumerable<Subscription> List();
 
         IActionResult Create(Subscription item);
-        Subscription Read(Subscription item);
+        IActionResult Read(Subscription item);
 
-        Subscription Update(Subscription item);
+        IActionResult Update(Subscription item);
 
-        Subscription Delete(Subscription item);
+        IActionResult Delete(Subscription item);
     }
 }

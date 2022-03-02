@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace baffis.Model
 {
-    class Order
+    public class Order
     {
         Subscription Subscription;
-        string Buyer;
+        string Subscriber;
         public DateTime SubscribedOn { get; set; }
         public DateTime ExpiresOn { get; set; }
         int PaymentDay;
+        public double Cost { get; set; }
     }
 }

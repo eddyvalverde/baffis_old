@@ -1,0 +1,28 @@
+﻿using baffis.DataAccess.Interface;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace baffis.DataAccess
+{
+    class ConnectionManager : IConnectionManager
+    {
+        public const string Prueba_Key = "BaffiConnection";
+        private readonly IConfiguration configuration;
+
+        public ConnectionManager(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+        public IDbConnection CreateConnection(string keyName)
+        {
+            var connstring = ConfigurationExtensions.GetConnectionString(configuration, $"{keyName}");
+            return new SqlConnection(connstring);
+        }
+    }
+}

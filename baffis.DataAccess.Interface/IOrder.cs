@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace baffis.DataAccess.Interface
 {
-    interface IOrder
+    public interface IOrder
     {
         IEnumerable<Order> List();
 

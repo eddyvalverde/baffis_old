@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace baffis.DataAccess.Interface
 {
-    interface IConnectionManager
+    public interface IConnectionManager
     {
         IDbConnection CreateConnection(string keyName);
     }
