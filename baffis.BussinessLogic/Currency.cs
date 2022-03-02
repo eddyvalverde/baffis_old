@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
-namespace baffis.BussinessLogic
+namespace baffis.BusinessLogic
 {
     public class Currency : ICurrency
     {
         #region Atributos
-        baffis.DataAccess.Interface.ICurrency articuloDataAccess;
+        DataAccess.Interface.ICurrency articuloDataAccess;
         #endregion
         public Currency(DataAccess.Interface.ICurrency articuloDataAccess)
         {

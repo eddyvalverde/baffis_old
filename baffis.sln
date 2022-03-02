@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "baffis.DataAccess", "baffis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "baffis.BusinessLogic.Interface", "baffis.BusinessLogic.Interface\baffis.BusinessLogic.Interface.csproj", "{6486A17C-256A-4059-B442-F78CCA0AC75A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "baffis.BussinessLogic", "baffis.BussinessLogic\baffis.BussinessLogic.csproj", "{D5DE74A8-11D2-4B7D-B868-B9FCEB9216A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "baffis.BusinessLogic", "baffis.BussinessLogic\baffis.BusinessLogic.csproj", "{D5DE74A8-11D2-4B7D-B868-B9FCEB9216A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "baffis.Service.Rest", "baffis.Service.Rest\baffis.Service.Rest.csproj", "{163DAEC0-A37B-4DDA-AEF1-58FAF57CF17A}"
 EndProject
