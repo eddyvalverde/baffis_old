@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace baffis.Model
 {
-    public class Currency
+    class Payment
     {
-        public int IdCurrency { get; set; }
-        public string Name { get; set; }
-        public string SYMBOL { get; set; }
+        int IdPayment;
+        Order order;
+        public double Cost { get; set; }
+        public DateTime PaymentDate { get; set; }
     }
 }

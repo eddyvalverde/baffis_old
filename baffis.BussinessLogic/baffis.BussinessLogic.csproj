@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\baffis.BusinessLogic.Interface\baffis.BusinessLogic.Interface.csproj" />
+    <ProjectReference Include="..\baffis.DataAccess.Interface\baffis.DataAccess.Interface.csproj" />
+  </ItemGroup>
+
+</Project>

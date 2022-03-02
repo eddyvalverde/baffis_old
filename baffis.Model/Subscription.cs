@@ -8,7 +8,7 @@ namespace baffis.Model
 {
     public class Subscription
     {
-        public int ID { get; set; }
+        public int IdSubscription { get; set; }
         public string Title { get; set; }        
         public string Description { get; set; }
         public double Cost { get; set; }

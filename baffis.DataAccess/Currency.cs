@@ -38,7 +38,7 @@ namespace baffis.DataAccess
             {
                 _connection.Open();
                 var resultado = _connection.Query<baffis.Model.Currency>(
-                    "usp_CurrencyConsult",
+                    "USP_LISTCURRENCY",
                     commandType: System.Data.CommandType.StoredProcedure);
                 _connection.Close();
                 return resultado;

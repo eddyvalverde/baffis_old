@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace baffis.DataAccess.Interface
 {
-    interface ISubscription
+    public interface ISubscription
     {
         IEnumerable<Subscription> List();
 
