@@ -34,25 +34,23 @@ namespace baffis.DataAccess
 
         public IEnumerable<Model.Order> List()
         {
-            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
-            {
-                _connection.Open();
-                /*var resultado1 = _connection.Query<Model.Articulo>(
-                    "usp_ConsultaArticulos",
-                    commandType: System.Data.CommandType.StoredProcedure);*/
+            /* using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+             {
+                 _connection.Open();
 
-                var resultado = _connection.Query<baffis.Model.Order, baffis.Model.Subscription, baffis.Model.Order>(
-                    "usp_OrdersConsult",
-                    map: (order, subscription) =>
-                    {
-                        order.Subscription = subscription;
-                        return order;
-                    },
-                    splitOn: "IdMarca",
-                    commandType: System.Data.CommandType.StoredProcedure);
-                _connection.Close();
-                return resultado;
-            }
+                 var resultado = _connection.Query<baffis.Model.Order, baffis.Model.Subscription, baffis.Model.Order>(
+                     "usp_OrdersConsult",
+                     map: (order, subscription) =>
+                     {
+                         order.Subscription = subscription;
+                         return order;
+                     },
+                     splitOn: "IdMarca",
+                     commandType: System.Data.CommandType.StoredProcedure);
+                 _connection.Close();
+                 return resultado;
+             }*/
+            throw new NotImplementedException();
         }
 
         public IActionResult Read(Model.Order item)
