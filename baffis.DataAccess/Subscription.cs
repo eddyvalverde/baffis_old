@@ -33,16 +33,16 @@ namespace baffis.DataAccess
         {            
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
+                var sqlcommand = "SELECT IdSUBSCRIPTION, Title, Description, Cost, s.IdCurrency,COUNTRY,NAME,CODE,SYMBOL FROM SUBSCRIPTION s INNER JOIN CURRENCY c ON s.IdCurrency = c.IdCurrency;";
                 _connection.Open();
                 var resultado = _connection.Query<baffis.Model.Subscription, baffis.Model.Currency, baffis.Model.Subscription>(
-                    "USP_LISTCURRENCY",
+                    sqlcommand,
                     map: (subscription, currency) =>
                     {
                         subscription.Currency = currency;
                         return subscription;
                     },
-                    splitOn: "IdCurrency",
-                    commandType: System.Data.CommandType.StoredProcedure);
+                    splitOn: "IdCurrency");
                 _connection.Close();
                 return resultado;
             }
