@@ -49,8 +49,8 @@ namespace baffis.DataAccess
         {
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
-                var parameters = new { IdCurrency_val = item.IdCurrency};
-                var sql = "exec USP_READCURRENCY @IdCurrency_val";
+                var parameters = new { idcurrency_val = item.IdCurrency};
+                var sql = "usp_readcurrency";
                 
                 _connection.Open();
 
