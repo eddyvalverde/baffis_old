@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace baffis.DataAccess
 {
-    class Subscription : ISubscription
+    public class Subscription : ISubscription
     {
         #region Atributos
         private readonly Interface.IConnectionManager connectionManager;
@@ -30,22 +30,18 @@ namespace baffis.DataAccess
         }
 
         public IEnumerable<Model.Subscription> List()
-        {
+        {            
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
                 _connection.Open();
-                /*var resultado1 = _connection.Query<Model.Articulo>(
-                    "usp_ConsultaArticulos",
-                    commandType: System.Data.CommandType.StoredProcedure);*/
-
                 var resultado = _connection.Query<baffis.Model.Subscription, baffis.Model.Currency, baffis.Model.Subscription>(
-                    "usp_OrdersConsult",
+                    "USP_LISTCURRENCY",
                     map: (subscription, currency) =>
                     {
                         subscription.Currency = currency;
                         return subscription;
                     },
-                    splitOn: "IdMarca",
+                    splitOn: "IdCurrency",
                     commandType: System.Data.CommandType.StoredProcedure);
                 _connection.Close();
                 return resultado;

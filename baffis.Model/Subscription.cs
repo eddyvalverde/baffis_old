@@ -13,5 +13,19 @@ namespace baffis.Model
         public string Description { get; set; }
         public double Cost { get; set; }
         public Currency Currency { get; set; }
+
+        public Subscription(Currency currency)
+        {
+            Currency = currency;
+        }
+
+        public Subscription(int idSubscription, string title, string description, double cost, Currency currency)
+        {
+            IdSubscription = idSubscription;
+            Title = title;
+            Description = description;
+            Cost = cost;
+            Currency = currency;
+        }
     }
 }

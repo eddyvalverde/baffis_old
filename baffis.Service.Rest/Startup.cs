@@ -34,6 +34,8 @@ namespace baffis.Service.Rest
             });
             services.AddSingleton<BusinessLogic.Interface.ICurrency, BusinessLogic.Currency>();
             services.AddSingleton<DataAccess.Interface.ICurrency, DataAccess.Currency>();
+            services.AddSingleton<BusinessLogic.Interface.ISubscription, BusinessLogic.Subscription>();
+            services.AddSingleton<DataAccess.Interface.ISubscription, DataAccess.Subscription>();
             services.AddSingleton<DataAccess.Interface.IConnectionManager, DataAccess.ConnectionManager>();
         }
 
