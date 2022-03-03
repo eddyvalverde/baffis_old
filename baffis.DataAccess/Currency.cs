@@ -49,13 +49,13 @@ namespace baffis.DataAccess
         {
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
-                var parameters = new { ID = item.IdCurrency};
-                var sql = "USP_LISTCURRENCY(@ID)";
+                var parameters = new { IdCurrency_val = item.IdCurrency};
+                var sql = "exec USP_READCURRENCY @IdCurrency_val";
                 
                 _connection.Open();
 
                 var resultado = _connection.Query<baffis.Model.Currency>(
-                    sql, parameters,
+                    sql: sql, param: parameters,
                     commandType: System.Data.CommandType.StoredProcedure);
                 _connection.Close();
                 
