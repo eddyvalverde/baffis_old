@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using baffis.BusinessLogic.Interface;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,27 @@ namespace baffis.Service.Rest.Controllers
     [ApiController]
     public class SubscriptionController : ControllerBase
     {
+        #region Atributos
+        private readonly BusinessLogic.Interface.ISubscription businessLogicSubscription;
+        #endregion
+        public SubscriptionController(ISubscription businessLogicSubscription)
+        {
+            this.businessLogicSubscription = businessLogicSubscription;
+        }
         // GET: api/<SubscriptionController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public Task<IEnumerable<Model.Subscription>> Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var items = businessLogicSubscription.List();
+                return Task.FromResult(items);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
 
         // GET api/<SubscriptionController>/5
