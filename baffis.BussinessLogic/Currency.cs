@@ -37,7 +37,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Update(Model.Currency item)
         {
-            throw new NotImplementedException();
+            return articuloDataAccess.Update(item);
         }
     }
 }

@@ -71,8 +71,24 @@ namespace baffis.Service.Rest.Controllers
 
         // PUT api/<CurrencyController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(Model.Currency value)
         {
+            if (value.IdCurrency == 0)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;              
+            }
+            else
+            {
+                try
+                {
+                    businessLogicCurrency.Update(value);
+                }
+                catch (Exception e)
+                {
+                    Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    throw;
+                }
+            }            
         }
 
         // DELETE api/<CurrencyController>/5
