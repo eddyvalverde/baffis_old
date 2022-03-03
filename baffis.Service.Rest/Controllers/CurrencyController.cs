@@ -41,7 +41,16 @@ namespace baffis.Service.Rest.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            try
+            {
+                var item = businessLogicCurrency.Read(new Model.Currency(id));
+                return item.ToString();
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
 
         // POST api/<CurrencyController>

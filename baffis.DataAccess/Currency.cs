@@ -47,7 +47,20 @@ namespace baffis.DataAccess
 
         public IActionResult Read(Model.Currency item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { ID = item.IdCurrency};
+                var sql = "USP_LISTCURRENCY(@ID)";
+                
+                _connection.Open();
+
+                var resultado = _connection.Query<baffis.Model.Currency>(
+                    sql, parameters,
+                    commandType: System.Data.CommandType.StoredProcedure);
+                _connection.Close();
+                
+                return new OkObjectResult(resultado.First());
+            }
         }
 
         public IActionResult Update(Model.Currency item)

@@ -32,7 +32,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Read(Model.Currency item)
         {
-            throw new NotImplementedException();
+            return articuloDataAccess.Read(item);
         }
 
         public IActionResult Update(Model.Currency item)
