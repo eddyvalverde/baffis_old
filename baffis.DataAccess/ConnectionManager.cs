@@ -1,5 +1,6 @@
 ﻿using baffis.DataAccess.Interface;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +13,7 @@ namespace baffis.DataAccess
 {
     public class ConnectionManager : IConnectionManager
     {
-        public const string Prueba_Key = "BaffiConnection";
+        public const string Prueba_Key = "DefaultConnection";
         private readonly IConfiguration configuration;
 
         public ConnectionManager(IConfiguration configuration)
@@ -22,7 +23,7 @@ namespace baffis.DataAccess
         public IDbConnection CreateConnection(string keyName)
         {
             var connstring = ConfigurationExtensions.GetConnectionString(configuration, $"{keyName}");
-            return new SqlConnection(connstring);
+            return new NpgsqlConnection(connstring);
         }
     }
 }
