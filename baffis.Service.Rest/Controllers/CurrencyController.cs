@@ -39,12 +39,12 @@ namespace baffis.Service.Rest.Controllers
 
         // GET api/<CurrencyController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Task<IActionResult> Get(int id)
         {
             try
             {
                 var item = businessLogicCurrency.Read(new Model.Currency(id));
-                return item.ToString();
+                return Task.FromResult(item);
             }
             catch (Exception e)
             {
