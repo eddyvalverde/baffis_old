@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace baffis.Service.Rest.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1.0/[controller]/[action]")]
     [ApiController]
     public class CurrencyController : ControllerBase
     {
@@ -55,8 +55,18 @@ namespace baffis.Service.Rest.Controllers
 
         // POST api/<CurrencyController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Model.Currency value)
         {
+            try
+            {
+                businessLogicCurrency.Create(value);                
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
+
         }
 
         // PUT api/<CurrencyController>/5

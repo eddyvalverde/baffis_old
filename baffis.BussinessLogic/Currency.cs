@@ -17,7 +17,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Create(Model.Currency item)
         {
-            throw new NotImplementedException();
+            return articuloDataAccess.Create(item);
         }
 
         public IActionResult Delete(Model.Currency item)
