@@ -41,7 +41,19 @@ namespace baffis.DataAccess
 
         public IActionResult Delete(Model.Currency item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idcurrency_val = item.IdCurrency};
+                var sql = "CALL usp_deletecurrency(@idcurrency_val);";
+
+                _connection.Open();
+
+                var resultado = _connection.Execute(
+                    sql: sql, param: parameters);
+                _connection.Close();
+
+                return new OkObjectResult("200");
+            }
         }
 
         public IEnumerable<Model.Currency> List()

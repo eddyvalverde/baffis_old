@@ -95,6 +95,22 @@ namespace baffis.Service.Rest.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            if (id == 0)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+            }
+            else
+            {
+                try
+                {
+                    businessLogicCurrency.Delete(new Model.Currency(id));
+                }
+                catch (Exception e)
+                {
+                    Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    throw;
+                }
+            }
         }
     }
 }

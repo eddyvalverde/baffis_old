@@ -22,7 +22,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Delete(Model.Currency item)
         {
-            throw new NotImplementedException();
+            return articuloDataAccess.Delete(item);
         }
 
         public IEnumerable<Model.Currency> List()
