@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace baffis.DataAccess
 {
-    class Order : IOrder
+    public class Order : IOrder
     {
         #region Atributos
         private readonly Interface.IConnectionManager connectionManager;
@@ -34,23 +34,21 @@ namespace baffis.DataAccess
 
         public IEnumerable<Model.Order> List()
         {
-            /* using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
-             {
-                 _connection.Open();
-
-                 var resultado = _connection.Query<baffis.Model.Order, baffis.Model.Subscription, baffis.Model.Order>(
-                     "usp_OrdersConsult",
-                     map: (order, subscription) =>
-                     {
-                         order.Subscription = subscription;
-                         return order;
-                     },
-                     splitOn: "IdMarca",
-                     commandType: System.Data.CommandType.StoredProcedure);
-                 _connection.Close();
-                 return resultado;
-             }*/
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var sqlcommand = "SELECT o.IDSubscription,Subscriber,SubscribedOn,ExpiresOn,PaymentDay,o.Cost  Title, Description, s.Cost FROM ORDER o INNER JOIN SUBSCRIPTION s  ON o.IDSubscription = s.IDSubscription WHERE o.REMOVED=FALSE;";
+                _connection.Open();
+                var resultado = _connection.Query<baffis.Model.Order, baffis.Model.Subscription, baffis.Model.Order>(
+                    sqlcommand,
+                    map: (order,subscription) =>
+                    {
+                        order.Subscription= subscription;
+                        return order;
+                    },
+                    splitOn: "IDSubscription");
+                _connection.Close();
+                return resultado;
+            }
         }
 
         public IActionResult Read(Model.Order item)

@@ -8,11 +8,11 @@ namespace baffis.Model
 {
     public class Order
     {
-        Subscription Subscription;
-        string Subscriber;
+        public Subscription Subscription;
+        public string Subscriber;
         public DateTime SubscribedOn { get; set; }
         public DateTime ExpiresOn { get; set; }
-        int PaymentDay;
+        public int PaymentDay;
         public double Cost { get; set; }
     }
 }
