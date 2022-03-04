@@ -95,6 +95,15 @@ namespace baffis.Service.Rest.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            try
+            {
+                businessLogicSubscription.Delete(new Model.Subscription(id));
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Delete(Model.Subscription item)
         {
-            throw new NotImplementedException();
+            return itemDataAccess.Delete(item);
         }
 
         public IEnumerable<Model.Subscription> List()

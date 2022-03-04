@@ -44,8 +44,8 @@ namespace baffis.DataAccess
                 var parameters = new { idsubscription_val = item.IdSubscription };
 
                 var sql = "UPDATE SUBSCRIPTION " +
-                    "REMOVED=TRUE" +
-                    "WHERE IdSUBSCRIPTION = @idsubscription_val;";
+                    "SET REMOVED = TRUE" +
+                    " WHERE IdSUBSCRIPTION = @idsubscription_val;";
 
                 _connection.Open();
 
@@ -61,7 +61,7 @@ namespace baffis.DataAccess
         {            
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
-                var sqlcommand = "SELECT IdSUBSCRIPTION, Title, Description, Cost, s.IdCurrency,COUNTRY,NAME,CODE,SYMBOL FROM SUBSCRIPTION s INNER JOIN CURRENCY c ON s.IdCurrency = c.IdCurrency;";
+                var sqlcommand = "SELECT IdSUBSCRIPTION, Title, Description, Cost, s.IdCurrency,COUNTRY,NAME,CODE,SYMBOL FROM SUBSCRIPTION s INNER JOIN CURRENCY c ON s.IdCurrency = c.IdCurrency WHERE s.REMOVED=FALSE;";
                 _connection.Open();
                 var resultado = _connection.Query<baffis.Model.Subscription, baffis.Model.Currency, baffis.Model.Subscription>(
                     sqlcommand,
