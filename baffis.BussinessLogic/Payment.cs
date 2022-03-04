@@ -19,7 +19,7 @@ namespace baffis.BusinessLogic
         }
         public IActionResult Create(Model.Payment item)
         {
-            throw new NotImplementedException();
+            return itemDataAccess.Create(item);
         }
 
         public IEnumerable<Model.Payment> List()

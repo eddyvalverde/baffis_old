@@ -23,7 +23,20 @@ namespace baffis.DataAccess
 
         public IActionResult Create(Model.Payment item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idorder_val = item.order.IDOrder };
+
+                var sql = "INSERT INTO Payment(IDOrder,PaymentDate) VALUES(@idorder_val,NOW());";
+
+                _connection.Open();
+
+                var resultado = _connection.Execute(
+                    sql: sql, param: parameters);
+                _connection.Close();
+
+                return new OkObjectResult("200");
+            }
         }
 
         public IEnumerable<Model.Payment> List()

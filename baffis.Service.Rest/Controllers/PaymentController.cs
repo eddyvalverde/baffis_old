@@ -47,8 +47,18 @@ namespace baffis.Service.Rest.Controllers
 
         // POST api/<PaymentController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Model.Payment value)
         {
+            try
+            {
+                var items = businessLogicPayment.Create(value);
+                
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
 
         // PUT api/<PaymentController>/5
