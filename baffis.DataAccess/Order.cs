@@ -24,9 +24,9 @@ namespace baffis.DataAccess
         {
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
-                var parameters = new { idsubscription_val = item.Subscription.IdSubscription, subscriber_val=item.Subscriber, subscribedon_val=item.SubscribedOn, expireson_val=item.ExpiresOn};
+                var parameters = new { idsubscription_val = item.Subscription.IdSubscription, subscriber_val=item.Subscriber};
 
-                var sql = "INSERT INTO Orders(IDSubscription,Subscriber,SubscribedOn,ExpiresOn) VALUES(idsubscription_val,subscriber_val,subscribedon_val,expireson_val);";
+                var sql = "INSERT INTO Orders(IDSubscription,Subscriber,SubscribedOn) VALUES(@idsubscription_val,@subscriber_val,NOW());";
 
                 _connection.Open();
 

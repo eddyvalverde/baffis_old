@@ -15,11 +15,11 @@ namespace baffis.Service.Rest.Controllers
     public class OrderController : ControllerBase
     {
         #region Atributos
-        private readonly BusinessLogic.Interface.IOrder businessLogicCurrency;
+        private readonly BusinessLogic.Interface.IOrder businessLogicOrder;
         #endregion
-        public OrderController(IOrder businessLogicCurrency)
+        public OrderController(IOrder businessLogicOrder)
         {
-            this.businessLogicCurrency = businessLogicCurrency;
+            this.businessLogicOrder = businessLogicOrder;
         }
         // GET: api/<OrderController>
         [HttpGet]
@@ -27,7 +27,7 @@ namespace baffis.Service.Rest.Controllers
         {
             try
             {
-                var items = businessLogicCurrency.List();
+                var items = businessLogicOrder.List();
                 return Task.FromResult(items);
             }
             catch (Exception e)
@@ -44,7 +44,7 @@ namespace baffis.Service.Rest.Controllers
             {
                 try
                 {
-                    var items = businessLogicCurrency.Read(new Model.Order(id));
+                    var items = businessLogicOrder.Read(new Model.Order(id));
                     return Task.FromResult(items);
                 }
                 catch (Exception e)
@@ -57,8 +57,17 @@ namespace baffis.Service.Rest.Controllers
 
         // POST api/<OrderController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Model.Order item)
         {
+            try
+            {
+                businessLogicOrder.Create(item);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
 
         // PUT api/<OrderController>/5
