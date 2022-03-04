@@ -39,7 +39,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Update(Model.Subscription item)
         {
-            throw new NotImplementedException();
+            return itemDataAccess.Update(item);
         }
     }
 }
