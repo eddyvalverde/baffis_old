@@ -31,6 +31,10 @@ namespace baffis.Model
             Cost = cost;
             Currency = currency;
         }
-        
+        public Subscription(int idSubscription)
+        {
+            IdSubscription = idSubscription;
+        }
+
     }
 }

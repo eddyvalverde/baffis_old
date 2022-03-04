@@ -39,9 +39,18 @@ namespace baffis.Service.Rest.Controllers
 
         // GET api/<SubscriptionController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Task<IActionResult> Get(int id)
         {
-            return "value";
+            try
+            {
+                var items = businessLogicSubscription.Read(new Model.Subscription(id));
+                return Task.FromResult(items);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
 
         // POST api/<SubscriptionController>
