@@ -25,7 +25,7 @@ namespace baffis.DataAccess
             {
                 var parameters = new {title_val = item.Title, description_val = item.Description, cost_val = item.Cost, idcurrency_val = item.Currency.IdCurrency};
                 
-                var sql = "CALL usp_createsubscription(@title_val,@description_val, @cost_val @idcurrency_val);";
+                var sql = "INSERT INTO SUBSCRIPTION(Title,Description,Cost,IdCurrency) VALUES(@title_val,@description_val, @cost_val, @idcurrency_val);";
 
                 _connection.Open();
 
