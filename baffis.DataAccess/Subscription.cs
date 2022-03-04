@@ -39,7 +39,22 @@ namespace baffis.DataAccess
 
         public IActionResult Delete(Model.Subscription item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idsubscription_val = item.IdSubscription };
+
+                var sql = "UPDATE SUBSCRIPTION " +
+                    "REMOVED=TRUE" +
+                    "WHERE IdSUBSCRIPTION = @idsubscription_val;";
+
+                _connection.Open();
+
+                var resultado = _connection.Execute(
+                    sql: sql, param: parameters);
+                _connection.Close();
+
+                return new OkObjectResult("200");
+            }
         }
 
         public IEnumerable<Model.Subscription> List()
@@ -66,7 +81,7 @@ namespace baffis.DataAccess
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
                 var parameters = new { idsubscription_val = item.IdSubscription};
-                var sqlcommand = "SELECT IdSUBSCRIPTION, Title, Description, Cost, s.IdCurrency,COUNTRY,NAME,CODE,SYMBOL FROM SUBSCRIPTION s,CURRENCY c WHERE s.IdCurrency = c.IdCurrency AND s.IdSUBSCRIPTION=@idsubscription_val;";
+                var sqlcommand = "SELECT IdSUBSCRIPTION, Title, Description, Cost, s.IdCurrency,COUNTRY,NAME,CODE,SYMBOL FROM SUBSCRIPTION s,CURRENCY c WHERE s.IdCurrency = c.IdCurrency AND s.IdSUBSCRIPTION=@idsubscription_val AND s.REMOVED=FALSE;";
                 _connection.Open();
                 var result = _connection.Query<baffis.Model.Subscription, baffis.Model.Currency, baffis.Model.Subscription>(
                     sql:sqlcommand,
@@ -98,7 +113,7 @@ namespace baffis.DataAccess
 
                 var sql = "UPDATE SUBSCRIPTION " +
                     "SET Title = @title_val, Description = @description_val, Cost = @cost_val, IdCurrency = @idcurrency_val " +
-                    "WHERE IdSUBSCRIPTION = @idsubscription_val;";
+                    "WHERE IdSUBSCRIPTION = @idsubscription_val AND REMOVED=FALSE;";
 
                 _connection.Open();
 
