@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace baffis.Model
 {
-    class Payment
+    public class Payment
     {
-        int IdPayment;
-        Order order;
+        public int IdPayment { get; set; }
+        public Order order { get; set; }
         public decimal Cost { get; set; }
         public DateTime PaymentDate { get; set; }
     }

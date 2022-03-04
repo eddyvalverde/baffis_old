@@ -39,6 +39,9 @@ namespace baffis.Service.Rest
             services.AddSingleton<DataAccess.Interface.IConnectionManager, DataAccess.ConnectionManager>();
             services.AddSingleton<BusinessLogic.Interface.IOrder, BusinessLogic.Order>();
             services.AddSingleton<DataAccess.Interface.IOrder, DataAccess.Order>();
+            services.AddSingleton<BusinessLogic.Interface.IPayment, BusinessLogic.Payment>();
+            services.AddSingleton<DataAccess.Interface.IPayment, DataAccess.Payment>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
