@@ -34,7 +34,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Read(Model.Subscription item)
         {
-            throw new NotImplementedException();
+            return itemDataAccess.Read(item);
         }
 
         public IActionResult Update(Model.Subscription item)
