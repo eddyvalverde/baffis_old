@@ -36,7 +36,7 @@ namespace baffis.DataAccess
         {
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
-                var sqlcommand = "SELECT o.IDSubscription,Subscriber,SubscribedOn,ExpiresOn,PaymentDay,o.Cost  Title, Description, s.Cost FROM ORDER o INNER JOIN SUBSCRIPTION s  ON o.IDSubscription = s.IDSubscription WHERE o.REMOVED=FALSE;";
+                var sqlcommand = "SELECT IDOrder,Subscriber,SubscribedOn,ExpiresOn,PaymentDay,o.Cost,o.IDSubscription, Title, Description, s.Cost FROM Orders o INNER JOIN SUBSCRIPTION s  ON o.IDSubscription = s.IDSubscription AND s.REMOVED=FALSE";
                 _connection.Open();
                 var resultado = _connection.Query<baffis.Model.Order, baffis.Model.Subscription, baffis.Model.Order>(
                     sqlcommand,
@@ -53,7 +53,31 @@ namespace baffis.DataAccess
 
         public IActionResult Read(Model.Order item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idorder_val = item.IDOrder};
+                var sqlcommand = "SELECT IDOrder,Subscriber,SubscribedOn,ExpiresOn,PaymentDay,o.Cost,o.IDSubscription, Title, Description, s.Cost FROM Orders o INNER JOIN SUBSCRIPTION s  ON o.IDSubscription = s.IDSubscription AND o.REMOVED = FALSE AND IDOrder = @idorder_val";
+                _connection.Open();
+                var result = _connection.Query<baffis.Model.Order, baffis.Model.Subscription, baffis.Model.Order>(
+                    sql: sqlcommand,
+                    param: parameters,
+                    map: (order, subscription) =>
+                    {
+                        order.Subscription = subscription;
+                        return order;
+                    },
+                    splitOn: "IDSubscription");
+                _connection.Close();
+                if (result.Count() == 1)
+                {
+                    return new OkObjectResult(result.First());
+                }
+                else
+                {
+                    return new NotFoundResult();
+                }
+
+            }
         }
 
         public IActionResult Update(Model.Order item)

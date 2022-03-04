@@ -11,9 +11,9 @@ namespace baffis.BusinessLogic
     public class Order : IOrder
     {
         #region Atributos
-        DataAccess.Interface.ISubscription itemDataAccess;
+        DataAccess.Interface.IOrder itemDataAccess;
         #endregion
-        public Order(DataAccess.Interface.ISubscription itemDataAccess)
+        public Order(DataAccess.Interface.IOrder itemDataAccess)
         {
             this.itemDataAccess = itemDataAccess;
         }
@@ -29,12 +29,12 @@ namespace baffis.BusinessLogic
 
         public IEnumerable<Model.Order> List()
         {
-            throw new NotImplementedException();
+            return itemDataAccess.List();
         }
 
         public IActionResult Read(Model.Order item)
         {
-            throw new NotImplementedException();
+            return itemDataAccess.Read(item);
         }
 
         public IActionResult Update(Model.Order item)

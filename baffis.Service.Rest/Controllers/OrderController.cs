@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using baffis.BusinessLogic.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,18 @@ namespace baffis.Service.Rest.Controllers
         #region Atributos
         private readonly BusinessLogic.Interface.IOrder businessLogicCurrency;
         #endregion
+        public OrderController(IOrder businessLogicCurrency)
+        {
+            this.businessLogicCurrency = businessLogicCurrency;
+        }
         // GET: api/<OrderController>
         [HttpGet]
         public Task<IEnumerable<Model.Order>> Get()
         {
             try
             {
-                var articulos = businessLogicCurrency.List();
-                return Task.FromResult(articulos);
+                var items = businessLogicCurrency.List();
+                return Task.FromResult(items);
             }
             catch (Exception e)
             {
@@ -34,9 +39,20 @@ namespace baffis.Service.Rest.Controllers
 
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Task<IActionResult> Get(int id)
         {
-            return "value";
+            {
+                try
+                {
+                    var items = businessLogicCurrency.Read(new Model.Order(id));
+                    return Task.FromResult(items);
+                }
+                catch (Exception e)
+                {
+                    Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    throw;
+                }
+            }
         }
 
         // POST api/<OrderController>
