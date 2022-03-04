@@ -23,7 +23,7 @@ namespace baffis.Model
         {
         }
 
-        public Subscription(int idSubscription, string title, string description, double cost, Currency currency)
+        public Subscription(int idSubscription, string title, string description, decimal cost, Currency currency)
         {
             IdSubscription = idSubscription;
             Title = title;
