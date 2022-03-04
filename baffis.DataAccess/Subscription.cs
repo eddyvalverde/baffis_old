@@ -92,7 +92,22 @@ namespace baffis.DataAccess
 
         public IActionResult Update(Model.Subscription item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idsubscription_val = item.IdSubscription,title_val = item.Title, description_val = item.Description, cost_val = item.Cost, idcurrency_val = item.Currency.IdCurrency };
+
+                var sql = "UPDATE SUBSCRIPTION " +
+                    "SET Title = @title_val, Description = @description_val, Cost = @cost_val, IdCurrency = @idcurrency_val " +
+                    "WHERE IdSUBSCRIPTION = @idsubscription_val;";
+
+                _connection.Open();
+
+                var resultado = _connection.Execute(
+                    sql: sql, param: parameters);
+                _connection.Close();
+
+                return new OkObjectResult("200");
+            }
         }
         
     }
