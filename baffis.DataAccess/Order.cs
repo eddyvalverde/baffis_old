@@ -22,7 +22,20 @@ namespace baffis.DataAccess
 
         public IActionResult Create(Model.Order item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idsubscription_val = item.Subscription.IdSubscription, subscriber_val=item.Subscriber, subscribedon_val=item.SubscribedOn, expireson_val=item.ExpiresOn};
+
+                var sql = "INSERT INTO Orders(IDSubscription,Subscriber,SubscribedOn,ExpiresOn) VALUES(idsubscription_val,subscriber_val,subscribedon_val,expireson_val);";
+
+                _connection.Open();
+
+                var resultado = _connection.Execute(
+                    sql: sql, param: parameters);
+                _connection.Close();
+
+                return new OkObjectResult("200");
+            }
         }
 
         
