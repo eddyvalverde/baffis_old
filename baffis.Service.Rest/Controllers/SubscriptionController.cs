@@ -55,8 +55,18 @@ namespace baffis.Service.Rest.Controllers
 
         // POST api/<SubscriptionController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Model.Subscription value)
         {
+
+            try
+            {
+                businessLogicSubscription.Create(value);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
 
         // PUT api/<SubscriptionController>/5
