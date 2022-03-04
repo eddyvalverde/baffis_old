@@ -50,7 +50,31 @@ namespace baffis.DataAccess
 
         public IActionResult Read(Model.Subscription item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idsubscription_val = item.IdSubscription};
+                var sqlcommand = "SELECT IdSUBSCRIPTION, Title, Description, Cost, s.IdCurrency,COUNTRY,NAME,CODE,SYMBOL FROM SUBSCRIPTION s,CURRENCY c WHERE s.IdCurrency = c.IdCurrency AND s.IdSUBSCRIPTION=@idsubscription_val;";
+                _connection.Open();
+                var result = _connection.Query<baffis.Model.Subscription, baffis.Model.Currency, baffis.Model.Subscription>(
+                    sql:sqlcommand,
+                    param:parameters,
+                    map: (subscription, currency) =>
+                    {
+                        subscription.Currency = currency;
+                        return subscription;
+                    },
+                    splitOn: "IdCurrency");
+                _connection.Close();
+                if (result.Count() == 1)
+                {
+                    return new OkObjectResult(result.First());
+                }
+                else
+                {
+                    return new NotFoundResult();
+                }
+                
+            }
         }
 
         public IActionResult Update(Model.Subscription item)
