@@ -19,7 +19,7 @@ namespace baffis.BusinessLogic
         }
         public IActionResult Create(Model.Order item)
         {
-            throw new NotImplementedException();
+            return itemDataAccess.Create(item);
         }
 
         public IActionResult Delete(Model.Order item)
