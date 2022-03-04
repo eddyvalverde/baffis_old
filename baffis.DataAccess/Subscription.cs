@@ -21,7 +21,20 @@ namespace baffis.DataAccess
         }
         public IActionResult Create(Model.Subscription item)
         {
-            throw new NotImplementedException();            
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new {title_val = item.Title, description_val = item.Description, cost_val = item.Cost, idcurrency_val = item.Currency.IdCurrency};
+                
+                var sql = "CALL usp_createsubscription(@title_val,@description_val, @cost_val @idcurrency_val);";
+
+                _connection.Open();
+
+                var resultado = _connection.Execute(
+                    sql: sql, param: parameters);
+                _connection.Close();
+
+                return new OkObjectResult("200");
+            }
         }
 
         public IActionResult Delete(Model.Subscription item)
