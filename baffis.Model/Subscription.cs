@@ -11,7 +11,7 @@ namespace baffis.Model
         public int IdSubscription { get; set; }
         public string Title { get; set; }        
         public string Description { get; set; }
-        public double Cost { get; set; }
+        public decimal Cost { get; set; }
         public Currency Currency { get; set; }
 
         public Subscription(Currency currency)

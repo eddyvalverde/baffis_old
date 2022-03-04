@@ -10,7 +10,7 @@ namespace baffis.Model
     {
         int IdPayment;
         Order order;
-        public double Cost { get; set; }
+        public decimal Cost { get; set; }
         public DateTime PaymentDate { get; set; }
     }
 }
