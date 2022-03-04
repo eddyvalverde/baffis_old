@@ -42,7 +42,22 @@ namespace baffis.DataAccess
 
         public IActionResult Delete(Model.Order item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idorder_val = item.IDOrder };
+
+                var sql = "UPDATE ORDERS " +
+                    "SET REMOVED = TRUE " +
+                    "WHERE IDOrder = @idorder_val;";
+
+                _connection.Open();
+
+                var resultado = _connection.Execute(
+                    sql: sql, param: parameters);
+                _connection.Close();
+
+                return new OkObjectResult("200");
+            }
         }
 
         public IEnumerable<Model.Order> List()
@@ -95,7 +110,22 @@ namespace baffis.DataAccess
 
         public IActionResult Update(Model.Order item)
         {
-            throw new NotImplementedException();
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { idorder_val = item.IDOrder,expireson_val = item.ExpiresOn};
+
+                var sql = "UPDATE ORDERS " +
+                    "SET ExpiresOn = @expireson_val " +
+                    "WHERE IDOrder = @idorder_val AND REMOVED=FALSE;";
+
+                _connection.Open();
+
+                var resultado = _connection.Execute(
+                    sql: sql, param: parameters);
+                _connection.Close();
+
+                return new OkObjectResult("200");
+            }
         }
     }
 }

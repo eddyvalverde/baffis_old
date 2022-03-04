@@ -24,7 +24,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Delete(Model.Order item)
         {
-            throw new NotImplementedException();
+            return itemDataAccess.Delete(item);
         }
 
         public IEnumerable<Model.Order> List()
@@ -39,7 +39,7 @@ namespace baffis.BusinessLogic
 
         public IActionResult Update(Model.Order item)
         {
-            throw new NotImplementedException();
+            return itemDataAccess.Update(item);
         }
     }
 }

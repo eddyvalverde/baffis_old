@@ -72,14 +72,32 @@ namespace baffis.Service.Rest.Controllers
 
         // PUT api/<OrderController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(Model.Order item)
         {
+            try
+            {
+                businessLogicOrder.Update(item);
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
 
         // DELETE api/<OrderController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            try
+            {
+                businessLogicOrder.Delete(new Model.Order(id));
+            }
+            catch (Exception e)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                throw;
+            }
         }
     }
 }
