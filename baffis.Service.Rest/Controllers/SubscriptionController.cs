@@ -71,8 +71,24 @@ namespace baffis.Service.Rest.Controllers
 
         // PUT api/<SubscriptionController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(Model.Subscription value)
         {
+            if (value.IdSubscription == 0)
+            {
+                Response.StatusCode = StatusCodes.Status400BadRequest;
+            }
+            else
+            {
+                try
+                {
+                    businessLogicSubscription.Update(value);
+                }
+                catch (Exception e)
+                {
+                    Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    throw;
+                }
+            }
         }
 
         // DELETE api/<SubscriptionController>/5
