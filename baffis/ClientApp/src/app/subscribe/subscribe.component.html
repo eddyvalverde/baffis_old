@@ -1,1 +1,13 @@
-<p>subscribe works!</p>
+<div >
+
+  <h2>{{subscription.Title | uppercase}}</h2>
+  
+  <div>
+
+    <p id="subscription-description">Description: {{subscription.Description}}</p>
+
+    <p id="subscription-cost">Cost: {{subscription.currency.code}}{{subscription.currency.symbol}}{{subscription.Cost}} monthly</p>
+    <button class="btn btn-warning" (click)="incrementCounter()">Subscribe</button>
+  </div>
+
+</div>

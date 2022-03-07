@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SUBSCRIPTIONS } from '../mock-subscription';
+import { Subscription } from '../subscription'
 
 @Component({
   selector: 'app-subscribe',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subscribe.component.css']
 })
 export class SubscribeComponent implements OnInit {
+
+  subscription: Subscription = SUBSCRIPTIONS[0];
 
   constructor() { }
 
