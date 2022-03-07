@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SUBSCRIPTIONS } from '../mock-subscription';
 import { Subscription } from '../subscription'
+import { SubscriptionService } from '../subscription.service'
 
 @Component({
   selector: 'app-subscribe',
@@ -9,11 +9,15 @@ import { Subscription } from '../subscription'
 })
 export class SubscribeComponent implements OnInit {
 
-  subscription: Subscription = SUBSCRIPTIONS[0];
+  subscription: Subscription;
 
-  constructor() { }
+  constructor(private subscriptionService: SubscriptionService) { }
 
   ngOnInit() {
+    this.getSubscription();
+  }
+  getSubscription(): void {
+    this.subscription = this.subscriptionService.getSubscription();
   }
 
 }
