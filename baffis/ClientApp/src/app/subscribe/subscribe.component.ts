@@ -17,7 +17,7 @@ export class SubscribeComponent implements OnInit {
     this.getSubscription();
   }
   getSubscription(): void {
-    this.subscription = this.subscriptionService.getSubscription();
+    this.subscriptionService.getSubscription().subscribe(subscription => this.subscription = subscription);
   }
 
 }
