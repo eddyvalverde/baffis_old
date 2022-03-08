@@ -27,6 +27,11 @@ namespace baffis.BusinessLogic
             return itemDataAccess.Delete(item);
         }
 
+        public IActionResult isSubscribed(string subscriber)
+        {
+            return itemDataAccess.isSubscribed(subscriber);
+        }
+
         public IEnumerable<Model.Order> List()
         {
             return itemDataAccess.List();

@@ -18,5 +18,8 @@ namespace baffis.DataAccess.Interface
         IActionResult Update(Order item);
 
         IActionResult Delete(Order item);
+
+        IActionResult isSubscribed(string subscriber);
+
     }
 }

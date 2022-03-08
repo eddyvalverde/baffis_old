@@ -60,6 +60,29 @@ namespace baffis.DataAccess
             }
         }
 
+        public IActionResult isSubscribed(string subscriber)
+        {
+            using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
+            {
+                var parameters = new { subscriber_val = subscriber };
+                var sqlcommand = "SELECT IDOrder FROM Orders WHERE REMOVED = FALSE AND Subscriber = @subscriber_val";
+                _connection.Open();
+                var result = _connection.Query<baffis.Model.Order>(
+                    sql: sqlcommand,
+                    param: parameters);
+                _connection.Close();
+                if (result.Count() == 1)
+                {
+                    return new OkObjectResult(result.First());
+                }
+                else
+                {
+                    return new NotFoundResult();
+                }
+
+            }
+        }
+
         public IEnumerable<Model.Order> List()
         {
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
