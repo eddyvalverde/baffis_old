@@ -32,11 +32,13 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\Currency.ts" />
+    <None Remove="ClientApp\src\app\Order.ts" />
     <None Remove="ClientApp\src\app\subscription.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\currency.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Order.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\subscription.ts" />
   </ItemGroup>
 
