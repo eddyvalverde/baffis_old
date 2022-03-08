@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from '../subscription'
 import { Order } from '../order'
 import { SubscriptionService } from '../subscription.service'
+import { AuthorizeService } from '../../api-authorization/authorize.service';
 
 @Component({
   selector: 'app-subscribe',
@@ -14,7 +15,7 @@ export class SubscribeComponent implements OnInit {
  
   userErrMess: string;
 
-  constructor(private subscriptionService: SubscriptionService) { }
+  constructor(private subscriptionService: SubscriptionService, private authorizeService: AuthorizeService) { }
 
   ngOnInit() {
     this.getSubscription();
@@ -25,9 +26,18 @@ export class SubscribeComponent implements OnInit {
     
   }
   subscribe(): void {
-    const val = { subscription: this.subscription, subscriber: 'abc' };
+    if (this.authorizeService.isAuthenticated()) {
+      
+      /*const val = { subscription: this.subscription, subscriber: 'abc' };
+      const val2 = this.authorizeService.getUser().;
+      this.subscriptionService.subscribe(val as Order);*/
+      this.authorizeService.getUser()
+        .subscribe(data => {
+          this.subscriptionService.subscribe({ subscription: this.subscription, subscriber: data.sub } as Order);
+         // console.log(data); //You will get all your user related information in this field
+        });
+    }
     
-    this.subscriptionService.subscribe(val  as Order);
   }
 
 }
