@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from '../subscription'
+import { Order } from '../order'
 import { SubscriptionService } from '../subscription.service'
 
 @Component({
@@ -22,6 +23,11 @@ export class SubscribeComponent implements OnInit {
     //this.subscriptionService.getSubscription().subscribe(subscription => this.subscription = subscription);
     this.subscriptionService.getSubscription().subscribe(subscription_in => { this.subscription = subscription_in; console.log(this.subscription) }, errmess => this.userErrMess = <any>errmess);
     
+  }
+  subscribe(): void {
+    const val = { subscription: this.subscription, subscriber: 'abc' };
+    
+    this.subscriptionService.subscribe(val  as Order);
   }
 
 }
