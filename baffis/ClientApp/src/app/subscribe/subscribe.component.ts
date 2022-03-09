@@ -44,6 +44,9 @@ export class SubscribeComponent implements OnInit {
         }).unsubscribe();
 
       
+      window.location.reload();
+
+      
       
     }
     
