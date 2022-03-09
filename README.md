@@ -41,11 +41,11 @@
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/eddygarros/baffis">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/eddygarros/baffis/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/eddygarros/baffis/issues">Request Feature</a>
   </p>
 </div>
 
@@ -92,6 +92,7 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
+* [Postgres](https://www.postgresql.org/)
 * [.NET Core 5.0](https://dotnet.microsoft.com/)
 * [Angular](https://angular.io/)
 * [Bootstrap](https://getbootstrap.com)
@@ -114,22 +115,18 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   npm install npm@latest -g
   ```
+* Docker Desktop 
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Run the docker-compose of this project(to set database): [Baffis.Database](https://github.com/eddygarros/baffis.Database)
+
 2. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/eddygarros/baffis.git
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+4. Open the solution on Visual Studio 2019 and set the startup projects like this:
+![alt text](startupprojets.png "Startup Projects")
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -181,7 +178,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -190,9 +187,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Your Name - [@eddygarros](https://twitter.com/eddygarros) - eddygarros@hotmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/eddygarros/baffis](https://github.com/eddygarros/baffis)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -224,9 +221,3 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
-
-# Instructions to run app
-
-1. Run the docker-compose of this project: [Baffis.Database](https://github.com/eddygarros/baffis.Database)
-2. Open the solution on Visual Studio 2019 and set the startup projects like this:
-![alt text](startupprojets.png "Startup Projects")
