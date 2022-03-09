@@ -34,8 +34,9 @@ export class SubscribeComponent implements OnInit {
       this.authorizeService.getUser()
         .subscribe(data => {
           this.subscriptionService.subscribe({ subscription: this.subscription, subscriber: data.sub } as Order);
-         // console.log(data); //You will get all your user related information in this field
-        });
+          // console.log(data); //You will get all your user related information in this field
+        }).unsubscribe();
+      
     }
     
   }
