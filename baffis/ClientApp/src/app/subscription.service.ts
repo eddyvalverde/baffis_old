@@ -13,6 +13,7 @@ export class SubscriptionService {
 
   private subscriptionUrl = 'https://localhost:44333/api/v1.0/Subscription/Get/1';
   private subscribeUrl = 'https://localhost:44333/api/v1.0/Order/Post';
+  private isSubscribedUrl = 'https://localhost:44333/api/v1.0/Order/isSubscribed';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -29,5 +30,12 @@ export class SubscriptionService {
     );
     val.subscribe();
     return val;
+  }
+
+  isSubscribed(subscriber: string): Observable<boolean> {
+
+    const order = this.http.get<boolean>(this.isSubscribedUrl);
+    order.subscribe();
+    return order;
   }
 }

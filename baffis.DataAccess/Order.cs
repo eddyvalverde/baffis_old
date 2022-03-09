@@ -73,11 +73,11 @@ namespace baffis.DataAccess
                 _connection.Close();
                 if (result.Count() == 1)
                 {
-                    return new OkObjectResult(result.First());
+                    return new OkObjectResult(true);
                 }
                 else
                 {
-                    return new NotFoundResult();
+                    return new OkObjectResult(false);
                 }
 
             }

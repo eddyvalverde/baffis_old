@@ -55,6 +55,23 @@ namespace baffis.Service.Rest.Controllers
             }
         }
 
+        [HttpGet("{subscriber}")]
+        public Task<IActionResult> isSubscribed(string subscriber)
+        {
+            {
+                try
+                {
+                    var items = businessLogicOrder.isSubscribed(subscriber);
+                    return Task.FromResult(items);
+                }
+                catch (Exception e)
+                {
+                    Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    throw;
+                }
+            }
+        }
+
         // POST api/<OrderController>
         [HttpPost]
         public void Post(Model.Order item)

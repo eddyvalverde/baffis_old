@@ -12,6 +12,7 @@ import { AuthorizeService } from '../../api-authorization/authorize.service';
 export class SubscribeComponent implements OnInit {
 
   subscription: Subscription;
+  isSubscribedb: boolean;
  
   userErrMess: string;
 
@@ -23,7 +24,6 @@ export class SubscribeComponent implements OnInit {
   getSubscription(): void {
     //this.subscriptionService.getSubscription().subscribe(subscription => this.subscription = subscription);
     this.subscriptionService.getSubscription().subscribe(subscription_in => { this.subscription = subscription_in; console.log(this.subscription) }, errmess => this.userErrMess = <any>errmess);
-    
   }
   subscribe(): void {
     if (this.authorizeService.isAuthenticated()) {
@@ -39,6 +39,10 @@ export class SubscribeComponent implements OnInit {
       
     }
     
+  }
+  isSubscribed(): boolean {
+    //this.subscriptionService.getSubscription().subscribe(subscription => this.subscription = subscription);
+    this.subscriptionService.getSubscription().subscribe(subscription_in => { this.subscription = subscription_in; console.log(this.subscription) }, errmess => this.userErrMess = <any>errmess);
   }
 
 }
