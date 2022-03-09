@@ -3,6 +3,7 @@ import { Subscription } from '../subscription'
 import { Order } from '../order'
 import { SubscriptionService } from '../subscription.service'
 import { AuthorizeService } from '../../api-authorization/authorize.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-subscribe',
@@ -12,7 +13,7 @@ import { AuthorizeService } from '../../api-authorization/authorize.service';
 export class SubscribeComponent implements OnInit {
 
   subscription: Subscription;
-  isSubscribedb: boolean;
+  public isSubscribed: Observable<boolean>;
  
   userErrMess: string;
 
@@ -20,9 +21,11 @@ export class SubscribeComponent implements OnInit {
 
   ngOnInit() {
     this.getSubscription();
+    this.isSubscribeT();
   }
   getSubscription(): void {
     //this.subscriptionService.getSubscription().subscribe(subscription => this.subscription = subscription);
+    
     this.subscriptionService.getSubscription().subscribe(subscription_in => { this.subscription = subscription_in; console.log(this.subscription) }, errmess => this.userErrMess = <any>errmess);
   }
   subscribe(): void {
@@ -31,14 +34,27 @@ export class SubscribeComponent implements OnInit {
       /*const val = { subscription: this.subscription, subscriber: 'abc' };
       const val2 = this.authorizeService.getUser().;
       this.subscriptionService.subscribe(val as Order);*/
+      
+
+
       this.authorizeService.getUser()
         .subscribe(data => {
           this.subscriptionService.subscribe({ subscription: this.subscription, subscriber: data.sub } as Order);
           // console.log(data); //You will get all your user related information in this field
         }).unsubscribe();
+
+      
       
     }
     
+  }
+
+  isSubscribeT(): void {
+      this.authorizeService.getUser()
+      .subscribe(data => {
+        this.isSubscribed = this.subscriptionService.isSubscribed(data.sub);
+        // console.log(data); //You will get all your user related information in this field
+      }).unsubscribe();
   }
   
 

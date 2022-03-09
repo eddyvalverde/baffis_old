@@ -1,4 +1,9 @@
-<div >
+<div *ngIf="isSubscribed | async">
+
+  <h2>You are subscribed already.</h2>
+
+</div>
+<div *ngIf="!(isSubscribed | async)" >
 
   <h2>{{subscription.title | uppercase}}</h2>
   
@@ -7,7 +12,9 @@
     <p id="subscription-description">Description: {{subscription.description}}</p>
 
     <p id="subscription-cost">Cost: {{subscription.currency.code}}{{subscription.currency.symbol}}{{subscription.cost}} monthly</p>
-    <button class="btn btn-warning" (click)="subscribe()">Subscribe</button>
+    <button  class="btn btn-warning" (click)="subscribe()">Subscribe</button>
   </div>
 
 </div>
+
+
