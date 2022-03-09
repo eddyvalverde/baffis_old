@@ -31,25 +31,31 @@ export class SubscribeComponent implements OnInit {
   subscribe(): void {
     if (this.authorizeService.isAuthenticated()) {
       
-      /*const val = { subscription: this.subscription, subscriber: 'abc' };
-      const val2 = this.authorizeService.getUser().;
-      this.subscriptionService.subscribe(val as Order);*/
-      
-
-
       this.authorizeService.getUser()
         .subscribe(data => {
           this.subscriptionService.subscribe({ subscription: this.subscription, subscriber: data.sub } as Order);
           // console.log(data); //You will get all your user related information in this field
         }).unsubscribe();
-
-      
+    
       window.location.reload();
 
-      
-      
     }
     
+  }
+
+  unsubscribe(): void {
+    if (this.authorizeService.isAuthenticated()) {
+
+      this.authorizeService.getUser()
+        .subscribe(data => {
+          this.subscriptionService.unsubscribe(data.sub);
+          // console.log(data); //You will get all your user related information in this field
+        });
+
+      window.location.reload();
+
+    }
+
   }
 
   isSubscribeT(): void {

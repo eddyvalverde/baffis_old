@@ -1,6 +1,7 @@
 <div *ngIf="isSubscribed | async">
 
   <h2>You are subscribed already.</h2>
+  <button class="btn btn-danger" (click)="unsubscribe()">Unsubscribe</button>
 
 </div>
 <div *ngIf="!(isSubscribed | async)" >

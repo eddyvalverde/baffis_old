@@ -20,6 +20,10 @@ namespace baffis.Model
         {
             IDOrder = id;
         }
+        public Order(string subscriber)
+        {
+            Subscriber = subscriber;
+        }
         public Order()
         {
         }

@@ -103,12 +103,12 @@ namespace baffis.Service.Rest.Controllers
         }
 
         // DELETE api/<OrderController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{subscriber}")]
+        public void Delete(string subscriber)
         {
             try
             {
-                businessLogicOrder.Delete(new Model.Order(id));
+                    businessLogicOrder.Delete(new Model.Order(subscriber));
             }
             catch (Exception e)
             {

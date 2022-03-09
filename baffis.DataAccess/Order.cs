@@ -44,11 +44,11 @@ namespace baffis.DataAccess
         {
             using (var _connection = connectionManager.CreateConnection(ConnectionManager.Prueba_Key))
             {
-                var parameters = new { idorder_val = item.IDOrder };
+                var parameters = new { subscriber_val = item.Subscriber};
 
                 var sql = "UPDATE ORDERS " +
                     "SET REMOVED = TRUE " +
-                    "WHERE IDOrder = @idorder_val;";
+                    "WHERE subscriber = @subscriber_val AND REMOVED = FALSE;";
 
                 _connection.Open();
 

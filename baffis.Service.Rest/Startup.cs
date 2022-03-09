@@ -32,7 +32,7 @@ namespace baffis.Service.Rest
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("*").AllowAnyHeader(); ;
+                                      builder.WithOrigins("*").AllowAnyHeader().WithMethods("GET", "POST", "OPTIONS", "PUT", "DELETE"); ;
                                   });
             });
 
