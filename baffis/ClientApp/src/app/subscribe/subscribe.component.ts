@@ -40,9 +40,6 @@ export class SubscribeComponent implements OnInit {
     }
     
   }
-  isSubscribed(): boolean {
-    //this.subscriptionService.getSubscription().subscribe(subscription => this.subscription = subscription);
-    this.subscriptionService.getSubscription().subscribe(subscription_in => { this.subscription = subscription_in; console.log(this.subscription) }, errmess => this.userErrMess = <any>errmess);
-  }
+  
 
 }
