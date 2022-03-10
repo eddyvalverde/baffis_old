@@ -30,15 +30,18 @@ export class SubscribeComponent implements OnInit {
   }
   subscribe(): void {
     if (this.authorizeService.isAuthenticated()) {
-      
+
       this.authorizeService.getUser()
         .subscribe(data => {
           this.subscriptionService.subscribe({ subscription: this.subscription, subscriber: data.sub } as Order);
           // console.log(data); //You will get all your user related information in this field
         }).unsubscribe();
-    
+
       window.location.reload();
 
+    }
+    else {
+      this.subscriptionService.pay();
     }
     
   }

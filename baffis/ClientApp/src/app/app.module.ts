@@ -32,7 +32,7 @@ import { SubscribeComponent } from './subscribe/subscribe.component'
       { path: '', component: HomeComponent, pathMatch: 'full' },
       /*{ path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },*/
-      { path: 'subscribe', component: SubscribeComponent, canActivate: [AuthorizeGuard] },
+      { path: 'subscribe', component: SubscribeComponent },
     ])
   ],
   providers: [
