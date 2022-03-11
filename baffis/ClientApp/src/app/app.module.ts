@@ -38,6 +38,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
       /*{ path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },*/
       { path: 'subscribe', component: SubscribeComponent },
+      { path: 'checkout', component: CheckoutComponent },
     ])
   ],
   providers: [
