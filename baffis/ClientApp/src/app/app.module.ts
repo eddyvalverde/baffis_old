@@ -14,6 +14,8 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { SubscribeComponent } from './subscribe/subscribe.component'
 
+import { NgxStripeModule } from 'ngx-stripe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +27,7 @@ import { SubscribeComponent } from './subscribe/subscribe.component'
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    NgxStripeModule.forRoot('pk_test_51KbkitAAwqVPEAx5NZfOtexW84d7hNVrM0m9ONcVkgK3lWMu1JAraZqOg9t62vBb4UhPlRM10GUfTnmdw9CQnI4W00LTtCV5Ip'),
     HttpClientModule,
     FormsModule,
     ApiAuthorizationModule,
