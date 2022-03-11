@@ -15,6 +15,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { SubscribeComponent } from './subscribe/subscribe.component'
 
 import { NgxStripeModule } from 'ngx-stripe';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NgxStripeModule } from 'ngx-stripe';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
