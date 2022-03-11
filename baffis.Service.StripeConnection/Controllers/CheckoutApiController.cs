@@ -24,20 +24,29 @@ namespace baffis.Service.StripeConnection.Controllers
         public ActionResult Create()
         {
             var domain = "https://localhost:44341";
+
+            var priceOptions = new PriceListOptions
+            {
+                LookupKeys = new List<string> {
+                    "examplelookupkey"//Request.Form["lookup_key"]
+                }
+            };
+            var priceService = new PriceService();
+            StripeList<Price> prices = priceService.List(priceOptions);
+
             var options = new SessionCreateOptions
             {
                 LineItems = new List<SessionLineItemOptions>
                 {
                   new SessionLineItemOptions
                   {
-                    // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-                    Price = "price_1KboqSAAwqVPEAx5QKLtA4m7",// Price = "{{PRICE_ID}}",
+                    Price = prices.Data[0].Id,
                     Quantity = 1,
                   },
                 },
-                Mode = "payment",
-                SuccessUrl = domain + "/success.html",
-                CancelUrl = domain + "/cancel.html",
+                Mode = "subscription",
+                SuccessUrl = domain + "?success=true&session_id={CHECKOUT_SESSION_ID}",
+                CancelUrl = domain + "?canceled=true",
             };
             var service = new SessionService();
             Session session = service.Create(options);

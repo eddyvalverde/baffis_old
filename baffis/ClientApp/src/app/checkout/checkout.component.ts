@@ -11,7 +11,8 @@ import { switchMap } from 'rxjs/operators';
 export class CheckoutComponent implements OnInit {
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Response-Type' : 'text' })
+
   };
 
   constructor(
@@ -38,6 +39,7 @@ export class CheckoutComponent implements OnInit {
         // customer using `error.message`.
         if (result.error) {
           alert(result.error.message);
+          //window.location.href = result.error.message.get('url');
         }
       });
   }
