@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { StripeService } from 'ngx-stripe';
 import { switchMap } from 'rxjs/operators';
@@ -10,6 +10,10 @@ import { switchMap } from 'rxjs/operators';
 })
 export class CheckoutComponent implements OnInit {
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+  };
+
   constructor(
     private http: HttpClient,
     private stripeService: StripeService  
@@ -19,8 +23,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   checkout() {
+    const formData = new FormData();
+    formData.append('lookup_key', 'examplelookupkey');
     // Check the server.js tab to see an example implementation
-    this.http.post<any>('https://localhost:44387/create-checkout-session', {})
+    this.http.post<any>('https://localhost:44387/create-checkout-session', formData, this.httpOptions)
       .pipe(
         switchMap(session => {
           return this.stripeService.redirectToCheckout({ sessionId: session.id })
