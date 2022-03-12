@@ -16,6 +16,7 @@ import { SubscribeComponent } from './subscribe/subscribe.component'
 
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { SuccessComponent } from './success/success.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CounterComponent,
     FetchDataComponent,
     SubscribeComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,6 +41,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },*/
       { path: 'subscribe', component: SubscribeComponent },
       { path: 'checkout', component: CheckoutComponent },
+      { path: 'success', component: SuccessComponent },
     ])
   ],
   providers: [
