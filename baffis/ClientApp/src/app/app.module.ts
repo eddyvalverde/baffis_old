@@ -15,7 +15,6 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { SubscribeComponent } from './subscribe/subscribe.component'
 
 import { NgxStripeModule } from 'ngx-stripe';
-import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
 import { CancelComponent } from './cancel/cancel.component';
 
@@ -27,7 +26,6 @@ import { CancelComponent } from './cancel/cancel.component';
     CounterComponent,
     FetchDataComponent,
     SubscribeComponent,
-    CheckoutComponent,
     SuccessComponent,
     CancelComponent
   ],
@@ -41,10 +39,9 @@ import { CancelComponent } from './cancel/cancel.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       /*{ path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },*/
-      { path: 'subscribe', component: SubscribeComponent },
-      { path: 'checkout', component: CheckoutComponent },
-      { path: 'success', component: SuccessComponent },
-      { path: 'cancel', component: CancelComponent },
+      { path: 'subscribe', component: SubscribeComponent, canActivate: [AuthorizeGuard] },
+      { path: 'success', component: SuccessComponent, canActivate: [AuthorizeGuard] },
+      { path: 'cancel', component: CancelComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [
