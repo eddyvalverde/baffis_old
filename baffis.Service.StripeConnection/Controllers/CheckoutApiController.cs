@@ -23,7 +23,7 @@ namespace baffis.Service.StripeConnection.Controllers
         [HttpPost]
         public ActionResult Create()
         {
-            var domain = "https://localhost:44341";
+            var domain = "https://localhost:44341/";
 
             var priceOptions = new PriceListOptions
             {
@@ -45,8 +45,8 @@ namespace baffis.Service.StripeConnection.Controllers
                   },
                 },
                 Mode = "subscription",
-                SuccessUrl = domain + "?success=true&session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = domain + "?canceled=true",
+                SuccessUrl = domain + "success?success=true&session_id={CHECKOUT_SESSION_ID}",
+                CancelUrl = domain + "cancel?canceled=true",
             };
             var service = new SessionService();
             Session session = service.Create(options);
