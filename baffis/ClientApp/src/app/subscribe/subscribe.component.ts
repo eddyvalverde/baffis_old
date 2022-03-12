@@ -37,7 +37,7 @@ export class SubscribeComponent implements OnInit {
           // console.log(data); //You will get all your user related information in this field
         }).unsubscribe();
 
-      window.location.reload();
+      //window.location.reload();
 
     }
     else {
@@ -55,7 +55,7 @@ export class SubscribeComponent implements OnInit {
           // console.log(data); //You will get all your user related information in this field
         });
 
-      window.location.reload();
+      //window.location.reload();
 
     }
 
