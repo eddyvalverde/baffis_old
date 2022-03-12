@@ -17,7 +17,6 @@ import { SubscribeComponent } from './subscribe/subscribe.component'
 import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
-import { CancelComponent } from './cancel/cancel.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +27,7 @@ import { CancelComponent } from './cancel/cancel.component';
     FetchDataComponent,
     SubscribeComponent,
     CheckoutComponent,
-    SuccessComponent,
-    CancelComponent
+    SuccessComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -44,7 +42,6 @@ import { CancelComponent } from './cancel/cancel.component';
       { path: 'subscribe', component: SubscribeComponent },
       { path: 'checkout', component: CheckoutComponent },
       { path: 'success', component: SuccessComponent },
-      { path: 'cancel', component: CancelComponent },
     ])
   ],
   providers: [
