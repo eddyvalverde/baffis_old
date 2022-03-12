@@ -13,7 +13,10 @@
     <p id="subscription-description">Description: {{subscription.description}}</p>
 
     <p id="subscription-cost">Cost: {{subscription.currency.code}}{{subscription.currency.symbol}}{{subscription.cost}} monthly</p>
-    <button  class="btn btn-warning" (click)="subscribe()">Subscribe</button>
+    
+    <form ngNoForm action="https://localhost:44387/create-checkout-session" method="POST">
+      <button type="submit" class="btn btn-warning" (click)="subscribe()">Subscribe</button>
+    </form>
   </div>
 
 </div>
