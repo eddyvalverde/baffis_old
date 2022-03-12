@@ -1,5 +1,6 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { StripeService } from 'ngx-stripe';
 import { switchMap } from 'rxjs/operators';
 
@@ -8,17 +9,28 @@ import { switchMap } from 'rxjs/operators';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, AfterViewInit  {
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'Response-Type' : 'text' })
-
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json', 'Response-Type': 'text', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Origin,Content-Type,X-Auth-Token'})
+    //Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token
   };
 
   constructor(
     private http: HttpClient,
-    private stripeService: StripeService  
+    private stripeService: StripeService,
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private _document
   ) { }
+    ngAfterViewInit(): void {
+      var s = this.renderer.createElement("script");
+      //s.onload = this.loadNextScript.bind(this);
+      s.type = "text/javascript";
+      s.src = "https://js.stripe.com/v3/";
+
+      this.renderer.appendChild(this._document.body, s);
+    }
 
   ngOnInit() {
   }

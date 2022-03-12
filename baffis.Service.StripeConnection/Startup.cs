@@ -34,7 +34,9 @@ namespace baffis.Service.StripeConnection
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("*").AllowAnyHeader().WithMethods("GET", "POST", "OPTIONS", "PUT", "DELETE"); ;
+                                      builder.AllowAnyOrigin()
+                                             .AllowAnyHeader()
+                                             .AllowAnyMethod();
                                   });
             });
             services.AddMvc().AddNewtonsoftJson();
