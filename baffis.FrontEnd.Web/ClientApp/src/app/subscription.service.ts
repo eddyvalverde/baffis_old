@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subscription } from './subscription';
-import { Order } from './order';
+import { Order } from './Order';
 import { SUBSCRIPTIONS } from './mock-subscription';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

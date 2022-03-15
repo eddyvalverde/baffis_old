@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  baffis.frontend.web:
+    image: ${DOCKER_REGISTRY-}baffisfrontendweb
+    build:
+      context: .
+      dockerfile: baffis.FrontEnd.Web/Dockerfile
+
+  baffis.frontend.app:
+    image: ${DOCKER_REGISTRY-}baffisfrontendapp
+    build:
+      context: .
+      dockerfile: baffis.FrontEnd.Web/ClientApp/Dockerfile
+    ports:
+      - "4200:4200" 
+      - "49153:49153"
+    volumes:
+      - ./baffis.FrontEnd.Web/ClientApp:/app
