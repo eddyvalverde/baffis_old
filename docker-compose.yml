@@ -17,3 +17,10 @@ services:
       - "49153:49153"
     volumes:
       - ./baffis.FrontEnd.Web/ClientApp:/app
+
+  baffis.service.rest:
+    image: ${DOCKER_REGISTRY-}baffisservicerest
+    build:
+      context: .
+      dockerfile: baffis.Service.Rest/Dockerfile
+
