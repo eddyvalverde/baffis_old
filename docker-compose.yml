@@ -24,3 +24,10 @@ services:
       context: .
       dockerfile: baffis.Service.Rest/Dockerfile
 
+
+  baffis.service.stripeconnection:
+    image: ${DOCKER_REGISTRY-}baffisservicestripeconnection
+    build:
+      context: .
+      dockerfile: baffis.Service.StripeConnection/Dockerfile
+
