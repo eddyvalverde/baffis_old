@@ -104,7 +104,7 @@ namespace baffis
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://baffis.frontend.app:4200");
                 }
             });
         }

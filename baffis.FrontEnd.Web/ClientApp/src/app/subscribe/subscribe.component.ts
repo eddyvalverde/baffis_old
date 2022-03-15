@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from '../subscription'
-import { Order } from '../order'
+import { Order } from '../Order'
 import { SubscriptionService } from '../subscription.service'
 import { AuthorizeService } from '../../api-authorization/authorize.service';
 import { Observable } from 'rxjs';
