@@ -19,6 +19,8 @@ services:
       - "49153:49153"
     volumes:
       - ./baffis.FrontEnd.Web/ClientApp:/app
+    depends_on:
+      - baffis.db
   baffis.service.rest:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -40,3 +42,25 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  baffis.db:
+    environment:
+      - POSTGRES_DB=BaffisDB
+      - POSTGRES_PASSWORD=baffispassword
+      - POSTGRES_USER=baffisuser
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+      - ./database/scripts:/docker-entrypoint-initdb.d/
+  adminer:
+    restart: always
+    ports:
+      - 8080:8080
+  pgadmin:
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=user@baffis.com
+      - PGADMIN_DEFAULT_PASSWORD=baffispassword   

@@ -31,3 +31,12 @@ services:
       context: .
       dockerfile: baffis.Service.StripeConnection/Dockerfile
 
+  baffis.db:
+    image: postgres:13
+  adminer:
+    image: adminer
+  pgadmin:
+    image: dpage/pgadmin4:6  
+volumes:    
+  odoo-db-data:
+
