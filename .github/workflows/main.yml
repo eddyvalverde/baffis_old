@@ -82,7 +82,7 @@ jobs:
       with:
         context: ./baffis.Service.StripeConnection
         push: true
-        target: app
+#        target: app
         build-args: commit=${{ needs.config.outputs.deployTag }}
         tags: ${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:${{ needs.config.outputs.deployTag }}
         cache-from: type=registry,ref=${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:buildcache
