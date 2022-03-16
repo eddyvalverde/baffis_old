@@ -1,223 +1,144 @@
-<div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
+# Core Startup Stack Sample App – Rails
 
-
+This repository demonstrates the Core Startup Stack – a set of infrastructure designed to get your app deployed in a robust, production-ready way with a minimum of fuss.
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+![Architecture diagram showing the core startup stack deployed by this project](infrastructure/startup-stack-architecture.png)
 
+## Deploying the Startup Stack Sample App
 
+### Fork this repository
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+Fork this repository into your own account (GitHub has [more information about forking repos](https://docs.github.com/en/get-started/quickstart/fork-a-repo))
 
-<h3 align="center">project_title</h3>
+### Clone the repository
 
-  <p align="center">
-    project_description
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/eddygarros/baffis">View Demo</a>
-    ·
-    <a href="https://github.com/eddygarros/baffis/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/eddygarros/baffis/issues">Request Feature</a>
-  </p>
-</div>
+Now clone this to your local machine or your Azure Cloud Shell. Here is [how to do this](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) from GitHub, or if you're using Visual Studio Code here are [instructions](https://code.visualstudio.com/docs/editor/github).
 
+### Create a resource group and service principal
 
+Either using [Azure Cloud Shell](https://docs.microsoft.com/azure/cloud-shell/overview) or the [Azure CLI](https://docs.microsoft.com/cli/azure/) on your local machine, first create a resource group to use for this project.
+Replace the values `startupstack-demo` and `westus2` with a resource group name and location of your choosing.
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
+```azurecli
+az group create --name startupstack-demo --location westus2
+```
 
+Create a service principal for the deployment. This allows you to give permissions to GitHub Actions to deploy resources on your behalf, but only within the scope of the resource group you have created.
 
+```azurecli
+RESOURCE_GROUP_ID=$(az group show --name startupstack-demo --query id -o tsv)
+az ad sp create-for-rbac --name startupstack-gh --role "Contributor" \
+    --scope $RESOURCE_GROUP_ID --sdk-auth
+```
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+The response will look something like the below JSON object. This response contains secrets which can be used to authenticate with Azure, so keep it secure for later steps.
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+```azurecli
+{
+"clientId": "...",
+"clientSecret": "...",
+"subscriptionId": "...",
+"tenantId": "...",
+...
+}
+```
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+After creating the service principal, we need to give it an additional role so our infrastructure template can assign roles within the scope of the resource group.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+```azurecli
+SP_ID=$(az ad sp list --display-name startupstack-gh --query [0].objectId -o tsv)
+az role assignment create --assignee-object-id $SP_ID \
+    --role "User Access Administrator" \
+    --scope $RESOURCE_GROUP_ID \
+    --assignee-principal-type "ServicePrincipal"
+```
 
+### Deploy the initial infrastructure
 
+Run the below commands to deploy, and don't forget to replace `<DATABASE PASSWORD>` with something more secure.
 
-### Built With
+```azurecli
+cd startup-stack-rails
+az deployment group create --resource-group startupstack-demo \
+    --template-file infrastructure/startup-stack.bicep \
+    --parameters @infrastructure/params-production.json dbPassword="<DATABASE PASSWORD>" deploymentSpId=$SP_ID
+```
 
-* [Postgres](https://www.postgresql.org/)
-* [.NET Core 5.0](https://dotnet.microsoft.com/)
-* [Angular](https://angular.io/)
-* [Bootstrap](https://getbootstrap.com)
+### Configure the Secrets
 
+1. Navigate to your repository on GitHub
+2. Select **Settings > Secrets > New repository secret**
+3. Paste the entire JSON output that you saved earlier. Give the secret the name `AZURE_CREDENTIALS`.
+4. Create another secret named `AZURE_RG`. Add the name of the resource group you created (in the above example it is `startupstack-demo`) to the secret's value field.
+5. Create another secret named `DB_PASSWORD`. Add the database password you used when initially deploying the infrastructure to the secret's value field.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+### Run the action
 
+1. Navigate to your repository on GitHub
+2. Select **Actions** and choose **Build and Deploy** from the list
+3. Click **Run Workflow**.
 
+NB There will be a warning about workflows not being enabled on forked repository - you will need to enable workflows.
 
-<!-- GETTING STARTED -->
-## Getting Started
+This will take about 10 minutes to complete on the first run. Subsequent runs will be faster due to caching of the Docker build.
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Once the build has run successfully, you can find the URL of your freshly deployed site:
 
-### Prerequisites
+1. Click on the run which has completed
+2. Select the **deploy** step
+3. Disclose the logs from the **Success!** step. The log messages will include details of your deployed app:
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-* Docker Desktop 
+```
+Successfully deployed using the Startup Stack.
+Webapp name: startup-stack-demovdwf5c-webapp
+URL: https://startup-stack-demovdwf5c-app.azureedge.net
+Connect to the app via ssh using this command:
+az webapp ssh -n startup-stack-demovdwf5c-webapp -g <RESOURCE GROUP NAME>
+```
 
-### Installation
+_Note: The CDN may take 10-15 minutes to initially propagate to all edge locations_
 
-1. Run the docker-compose of this project(to set database): [Baffis.Database](https://github.com/eddygarros/baffis.Database)
+### Load the initial data
 
-2. Clone the repo
-   ```sh
-   git clone https://github.com/eddygarros/baffis.git
-   ```
-4. Open the solution on Visual Studio 2019 and set the startup projects like this:
-![alt text](startupprojets.png "Startup Projects")
+Locate the logs from running the action and within the **Success** find the command for connecting via ssh. Replace `<RESOURCE GROUP NAME>` with the name of the resource group you created and run the command in Azure Cloud Shell.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+```azurecli
+az webapp ssh -n startup-stack-demo -g <RESOURCE GROUP NAME>
+```
 
+Inside the ssh session which is established, setup the database.
 
+```azurecli
+cd /app
+DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:setup
+```
 
-<!-- USAGE EXAMPLES -->
-## Usage
+### Testing the app
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+You can navigate to the app using the included in the URL returned as part of the deployment logs. Select **Login** from the top navigation and log in with the email `example@railstutorial.org` and password `foobar` to use the demo application.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### Clean Up
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+Once you are finished with testing the app, to avoid accruing costs you should clean up the infrastructure.
 
+Run this command to remove the deployment group and all the resources in it:
 
+```azurecli
+az group delete -g <RESOURCE GROUP NAME>
+```
 
-<!-- ROADMAP -->
-## Roadmap
+## About the Sample App
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+This sample app is built around the reference app from Michael Hart's [Rails Tutorial](https://railstutorial.org). We chose it as it has real functionality but is simple enough not to be a distraction. You can read the [original readme](./README-ORIG.md) for more details about the app.
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+The core idea of the Startup Stack is that whatever stack you choose, so long as you can build it with a Dockerfile, then it can be deployed successfully in a robust, production-ready way with the Startup Stack.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+## Legal
 
+### Trademarks
 
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow Microsoft’s Trademark & Brand Guidelines. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party’s policies.
 
-<!-- CONTRIBUTING -->
-## Contributing
+### Data Collection
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@eddygarros](https://twitter.com/eddygarros) - eddygarros@hotmail.com
-
-Project Link: [https://github.com/eddygarros/baffis](https://github.com/eddygarros/baffis)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/eddygarros/baffis.svg?style=for-the-badge
-[contributors-url]: https://github.com/eddygarros/baffis/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/eddygarros/baffis.svg?style=for-the-badge
-[forks-url]: https://github.com/eddygarros/baffis/network/members
-[stars-shield]: https://img.shields.io/github/stars/eddygarros/baffis.svg?style=for-the-badge
-[stars-url]: https://github.com/eddygarros/baffis/stargazers
-[issues-shield]: https://img.shields.io/github/issues/eddygarros/baffis.svg?style=for-the-badge
-[issues-url]: https://github.com/eddygarros/baffis/issues
-[license-shield]: https://img.shields.io/github/license/eddygarros/baffis.svg?style=for-the-badge
-[license-url]: https://github.com/eddygarros/baffis/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/eddyvalverde
-[product-screenshot]: images/screenshot.png
+The software may collect information about you and your use of the software and send it to Microsoft. Microsoft may use this information to provide services and improve our products and services. You may turn off the telemetry as described in the repository. There are also some features in the software that may enable you and Microsoft to collect data from users of your applications. If you use these features, you must comply with applicable law, including providing appropriate notices to users of your applications together with a copy of Microsoft’s privacy statement. Our privacy statement is located at https://go.microsoft.com/fwlink/?LinkID=824704. You can learn more about data collection and use in the help documentation and our privacy statement. Your use of the software operates as your consent to these practices.
