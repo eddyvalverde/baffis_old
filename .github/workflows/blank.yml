@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+    - baffis.Service.StripeConnection/**
+  pull_request:
+    branches: [ master ]
+    paths:
+    - baffis.Service.StripeConnection/**
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build ./baffis.Service.StripeConnection/ --file baffis.Service.StripeConnection/Production.Dockerfile --tag my-image-name:$(date +%s)
