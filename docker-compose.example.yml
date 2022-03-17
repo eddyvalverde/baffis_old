@@ -1,0 +1,55 @@
+version: '3.4'
+
+services:
+  baffis.frontend.web:
+    image: startupstackdemocllddnxmjvpw2.azurecr.io/baffis.frontend.web:76	
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "44340:80"
+      - "44341:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - baffis.frontend.app	  
+
+  baffis.frontend.app:
+    image: startupstackdemocllddnxmjvpw2.azurecr.io/baffis.frontend.web.clientapp:77
+    ports:
+      - "4200:4200" 
+      - "49153:49153"
+    volumes:
+      - ./baffis.FrontEnd.Web/ClientApp:/app
+    ports:
+      - "4200:4200" 
+      - "49153:49153"
+    volumes:
+      - ./baffis.FrontEnd.Web/ClientApp:/app
+    depends_on:
+      - baffis.db	  
+
+  baffis.service.rest:
+    image: startupstackdemocllddnxmjvpw2.azurecr.io/baffis.service.rest:74
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "44330:80"
+      - "44333:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro	  
+
+  baffis.service.stripeconnection:
+    image: startupstackdemocllddnxmjvpw2.azurecr.io/baffis.service.stripeconnection:69
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "44380:80"
+      - "44387:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro	  
