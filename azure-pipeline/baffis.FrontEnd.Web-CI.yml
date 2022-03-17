@@ -8,7 +8,9 @@ trigger:
     - master
   paths:
     include:
-    - baffis.FrontEnd.Web/ClientApp
+    - baffis.FrontEnd.Web
+    exclude:
+     - baffis.FrontEnd.Web/ClientApp
 
 resources:
 - repo: self
@@ -29,7 +31,7 @@ stages:
       displayName: Build an image
       inputs:
         command: build
-        dockerfile: '$(Build.SourcesDirectory)/baffis.FrontEnd.Web/ClientApp/Dockerfile'
-        buildContext: '$(Build.SourcesDirectory)/baffis.FrontEnd.Web/ClientApp'
+        dockerfile: '$(Build.SourcesDirectory)/baffis.FrontEnd.Web/Dockerfile'
+        buildContext: './'
         tags: |
           $(tag)
