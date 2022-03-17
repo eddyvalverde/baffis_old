@@ -31,5 +31,5 @@ stages:
         containerRegistry: 'VisualStudioEnterpriseSubscription'
         repository: 'baffis.Service.Rest'
         command: 'buildAndPush'
-        Dockerfile: 'baffis.Service.Rest/Production.Dockerfile'
+        Dockerfile: 'baffis.Service.Rest/Dockerfile'
         buildContext: './'
