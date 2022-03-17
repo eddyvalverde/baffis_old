@@ -1,4 +1,4 @@
-# Core Startup Stack Sample App – Rails
+# Core Startup Stack Sample App – .NET
 
 This repository demonstrates the Core Startup Stack – a set of infrastructure designed to get your app deployed in a robust, production-ready way with a minimum of fuss.
 
