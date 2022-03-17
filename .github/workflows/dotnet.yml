@@ -3,8 +3,13 @@ name: .NET
 on:
   push:
     branches: [ master ]
+    paths:
+    - baffis.Service.StripeConnection/**
   pull_request:
     branches: [ master ]
+    paths:
+    - baffis.Service.StripeConnection/**
+
 
 jobs:
   build:
