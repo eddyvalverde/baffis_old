@@ -9,7 +9,7 @@ trigger:
     - releases/*
   paths:
     include:
-    - baffis.Service.StripeConnection
+    - baffis.Service.Rest
 
 resources:
 - repo: self
@@ -29,7 +29,7 @@ stages:
     - task: Docker@2
       inputs:
         containerRegistry: 'VisualStudioEnterpriseSubscription'
-        repository: 'baffis.Service.StripeConnection'
+        repository: 'baffis.Service.Rest'
         command: 'buildAndPush'
-        Dockerfile: 'baffis.Service.StripeConnection/Dockerfile'
+        Dockerfile: 'baffis.Service.Rest/Dockerfile'
         buildContext: './'
