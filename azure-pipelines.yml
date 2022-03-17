@@ -32,3 +32,4 @@ stages:
         repository: 'baffis.Service.Rest'
         command: 'buildAndPush'
         Dockerfile: 'baffis.Service.Rest/Production.Dockerfile'
+        buildContext: './'
