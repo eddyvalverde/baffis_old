@@ -82,6 +82,7 @@ jobs:
       with:
         push: true
         target: app
+        file: "{{defaultContext}}:baffis.Service.StripeConnection/Dockerfile"
         build-args: commit=${{ needs.config.outputs.deployTag }}
         tags: ${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:${{ needs.config.outputs.deployTag }}
         cache-from: type=registry,ref=${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:buildcache
