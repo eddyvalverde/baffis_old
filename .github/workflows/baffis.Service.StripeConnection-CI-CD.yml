@@ -84,7 +84,7 @@ jobs:
         #target: app
         file: "baffis.Service.StripeConnection/Dockerfile"
         build-args: commit=${{ needs.config.outputs.deployTag }}
-        tags: ${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:${{ needs.config.outputs.deployTag }}
+        tags: ${{ needs.config.outputs.crName }}.azurecr.io/baffis.Service.StripeConnection:${{ needs.config.outputs.deployTag }}
         cache-from: type=registry,ref=${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:buildcache
         cache-to: type=registry,ref=${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:buildcache,mode=max
     
@@ -93,8 +93,8 @@ jobs:
       uses: docker/build-push-action@v2.6.1
       with:
         push: false
-        #target: static
-        cache-from: type=registry,ref=${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:buildcache
+        target: static
+        cache-from: type=registry,ref=${{ needs.config.outputs.crName }}.azurecr.io/baffis.Service.StripeConnection:buildcache
         outputs: type=local,dest=static
     
     - name: 'Login via Azure CLI'
