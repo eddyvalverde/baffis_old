@@ -81,7 +81,7 @@ jobs:
       uses: docker/build-push-action@v2.6.1
       with:
         push: true
-        target: app
+        #target: app
         file: "{{defaultContext}}:baffis.Service.StripeConnection/Dockerfile"
         build-args: commit=${{ needs.config.outputs.deployTag }}
         tags: ${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:${{ needs.config.outputs.deployTag }}
@@ -93,7 +93,7 @@ jobs:
       uses: docker/build-push-action@v2.6.1
       with:
         push: false
-        target: static
+        #target: static
         cache-from: type=registry,ref=${{ needs.config.outputs.crName }}.azurecr.io/${{ needs.config.outputs.name }}:buildcache
         outputs: type=local,dest=static
     
